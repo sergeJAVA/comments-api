@@ -19,6 +19,11 @@ public class CommentController {
         return commentService.findAll();
     }
 
+    @GetMapping("/all/{id}")
+    public List<Comment> findAllByPostId(@PathVariable Long id) {
+        return commentService.findAllByPostId(id).get();
+    }
+
     @PostMapping("/create")
     public Comment create(@RequestBody Comment comment) {
         return commentService.save(comment);
