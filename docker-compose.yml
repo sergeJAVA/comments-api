@@ -10,3 +10,14 @@ services:
       POSTGRES_PASSWORD: pass
     ports:
       - "5435:5432"
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379" # Проброс порта Redis на хост
+    volumes:
+      - redis-data:/data # Том для сохранения данных
+    restart: unless-stopped # Перезапуск при сбоях
+
+volumes:
+    redis-data: # Определение

@@ -9,8 +9,9 @@ public interface CommentService {
     List<Comment> findAll();
 
     Optional<Comment> findById(Long id);
-    Comment save(Comment comment);
-    void deleteById(Long id);
-    Optional<List<Comment>> findAllByPostId(Long postId);
+    Comment createComment(Comment comment);
+    List<Comment> findAllByPostId(Long postId);
     void saveAll(List<Comment> list);
+    void deleteComment(Long commentId, Long postId);
+    boolean existsByIdAndPostId(Long id, Long postId);
 }

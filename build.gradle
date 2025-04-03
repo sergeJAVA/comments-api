@@ -38,6 +38,13 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
+	// Spring Boot Starter для работы с Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// Spring Boot Starter для кэширования
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
