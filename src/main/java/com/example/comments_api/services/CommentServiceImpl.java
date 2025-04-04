@@ -20,7 +20,6 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     @Override
-    @Cacheable(value = "commentLists", key = "'all'", unless = "#result.isEmpty()")
     public List<Comment> findAll() {
         return commentRepository.findAll();
     }
@@ -33,9 +32,10 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "commentLists", allEntries = true),
-            @CacheEvict(value = "comments", key = "#comment.postId")
+            @CacheEvict(value = "comments", key = "#comment.postId"),
+            @CacheEvict(value = "commentLists", key = "#comment.postId")
     })
+
     public Comment createComment(Comment comment) {
         Comment newComment = Comment.builder()
                 .author(comment.getAuthor())
@@ -49,8 +49,8 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     @Caching(evict = {
-            @CacheEvict(value = "comments", key = "#postId"),
-            @CacheEvict(value = "commentLists", allEntries = true)
+            @CacheEvict(value = "commentLists", key = "#postId"),
+            @CacheEvict(value = "comments", key = "#commentId")
     })
     public void deleteComment(Long commentId, Long postId) {
         if (existsByIdAndPostId(commentId, postId)) {
