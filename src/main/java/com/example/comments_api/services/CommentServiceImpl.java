@@ -36,7 +36,6 @@ public class CommentServiceImpl implements CommentService{
             @CacheEvict(value = "commentLists", allEntries = true),
             @CacheEvict(value = "comments", key = "#comment.postId")
     })
-
     public Comment createComment(Comment comment) {
         Comment newComment = Comment.builder()
                 .author(comment.getAuthor())
@@ -57,6 +56,13 @@ public class CommentServiceImpl implements CommentService{
         if (existsByIdAndPostId(commentId, postId)) {
             commentRepository.deleteByIdAndPostId(commentId, postId);
         }
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(value = "commentLists", key = "#postId")
+    public void deleteCommentsByPostId(Long postId) {
+        commentRepository.deleteByPostId(postId);
     }
 
     @Override

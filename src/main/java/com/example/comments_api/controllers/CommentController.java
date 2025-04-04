@@ -36,11 +36,10 @@ public class CommentController {
     public <T> ResponseEntity<T> getCommentById(@PathVariable Long id) {
         Optional<Comment> comment = commentService.findById(id);
         if (comment.isPresent()) {
-            return (ResponseEntity<T>) new ResponseEntity<>(commentMapper.commentToDto(comment.get()), HttpStatus.OK);
+            return (ResponseEntity<T>) new ResponseEntity<>(comment.get(), HttpStatus.OK);
         }
 
         return (ResponseEntity<T>) new ResponseEntity<>("Comment doesn't exist", HttpStatus.NOT_FOUND);
-
     }
 
     // Получить все комментарии для поста по postId
@@ -66,5 +65,12 @@ public class CommentController {
         }
 
         return new ResponseEntity<>("Comment was not found in post with id \"" + postId + "\"", HttpStatus.NOT_FOUND); // 204 No Content
+    }
+
+    // Удалить все комментарии по postId
+    @DeleteMapping("/post/{postId}/comments")
+    public ResponseEntity<String> deleteCommentsByPostId(@PathVariable Long postId) {
+        commentService.deleteCommentsByPostId(postId);
+        return ResponseEntity.ok("All comments on the post with id \"" + postId + "\" have been deleted");
     }
 }

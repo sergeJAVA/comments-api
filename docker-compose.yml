@@ -20,4 +20,4 @@ services:
     restart: unless-stopped # Перезапуск при сбоях
 
 volumes:
-    redis-data: # Определение
+  redis-data: # Определение

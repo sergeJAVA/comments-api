@@ -14,4 +14,5 @@ public interface CommentService {
     void saveAll(List<Comment> list);
     void deleteComment(Long commentId, Long postId);
     boolean existsByIdAndPostId(Long id, Long postId);
+    void deleteCommentsByPostId(Long postId);
 }
