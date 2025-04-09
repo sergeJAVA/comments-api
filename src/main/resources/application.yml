@@ -22,11 +22,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-    cache:
-      type: redis
-      redis:
-        time-to-live: 600000
-        cache-null-values: false
+    password: pass
 
 jwt:
   secret: secretkeyPasswordForAuth12312312312313213123123sdfsdf

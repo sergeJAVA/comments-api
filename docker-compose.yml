@@ -14,10 +14,11 @@ services:
     image: redis:latest
     container_name: redis
     ports:
-      - "6379:6379" # Проброс порта Redis на хост
+      - "6379:6379"
+    command: redis-server --requirepass pass
     volumes:
-      - redis-data:/data # Том для сохранения данных
-    restart: unless-stopped # Перезапуск при сбоях
+      - redis-data:/data
+    restart: unless-stopped
 
 volumes:
-  redis-data: # Определение
+  redis-data:
