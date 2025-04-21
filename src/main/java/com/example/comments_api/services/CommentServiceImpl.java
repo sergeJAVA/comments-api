@@ -2,6 +2,7 @@ package com.example.comments_api.services;
 
 import com.example.comments_api.model.Comment;
 import com.example.comments_api.repository.CommentRepository;
+import com.example.comments_api.services.security.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
+    private final JWTService jwtService;
 
     @Override
     public List<Comment> findAll() {
@@ -36,9 +38,10 @@ public class CommentServiceImpl implements CommentService{
             @CacheEvict(value = "commentLists", key = "#comment.postId")
     })
 
-    public Comment createComment(Comment comment) {
+    public Comment createComment(Comment comment, String token) {
+
         Comment newComment = Comment.builder()
-                .author(comment.getAuthor())
+                .author(jwtService.getUserNameFromToken(token))
                 .text(comment.getText())
                 .postId(comment.getPostId())
                 .timestamp(LocalDateTime.now())

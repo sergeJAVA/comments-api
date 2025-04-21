@@ -51,8 +51,8 @@ public class CommentController {
 
     // Создать новый комментарий
     @PostMapping
-    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
-        Comment createdComment = commentService.createComment(comment);
+    public ResponseEntity<Comment> createComment(@RequestBody Comment comment, @CookieValue("token") String token) {
+        Comment createdComment = commentService.createComment(comment, token);
         return ResponseEntity.status(201).body(createdComment); // 201 Created
     }
 

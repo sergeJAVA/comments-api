@@ -9,7 +9,7 @@ public interface CommentService {
     List<Comment> findAll();
 
     Optional<Comment> findById(Long id);
-    Comment createComment(Comment comment);
+    Comment createComment(Comment comment, String token);
     List<Comment> findAllByPostId(Long postId);
     void saveAll(List<Comment> list);
     void deleteComment(Long commentId, Long postId);
