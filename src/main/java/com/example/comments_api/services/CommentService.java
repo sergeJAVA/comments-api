@@ -15,4 +15,5 @@ public interface CommentService {
     void deleteComment(Long commentId, Long postId);
     boolean existsByIdAndPostId(Long id, Long postId);
     void deleteCommentsByPostId(Long postId);
+    List<Comment> findAllByAuthor(String author);
 }

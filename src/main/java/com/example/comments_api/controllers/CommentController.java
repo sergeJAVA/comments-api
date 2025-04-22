@@ -56,6 +56,19 @@ public class CommentController {
         return ResponseEntity.status(201).body(createdComment); // 201 Created
     }
 
+    @PostMapping("/update/author/{oldAuthor}/{newAuthor}")
+    public ResponseEntity<String> updateAuthor(@PathVariable String oldAuthor, @PathVariable String newAuthor) {
+        List<Comment> comments = commentService.findAllByAuthor(oldAuthor);
+        if (comments != null) {
+            comments.forEach(comment -> {
+                comment.setAuthor(newAuthor);
+            });
+            commentService.saveAll(comments);
+            return ResponseEntity.ok("Author in the comments has been successfully updated");
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Failed! Author in the comments hasn't changed!");
+    }
+
     // Удалить комментарий по ID и postId
     @DeleteMapping("/{commentId}/post/{postId}")
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId, @PathVariable Long postId) {

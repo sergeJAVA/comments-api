@@ -69,12 +69,22 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
+    public List<Comment> findAllByAuthor(String author) {
+        List<Comment> comments = commentRepository.findAllByAuthor(author);
+        if (!comments.isEmpty()) {
+            return comments;
+        }
+        return null;
+    }
+
+    @Override
     @Cacheable(value = "commentLists", key = "#postId", unless = "#result.isEmpty()")
     public List<Comment> findAllByPostId(Long postId) {
         return commentRepository.findByPostId(postId).orElse(Collections.emptyList());
     }
 
     @Override
+    @CacheEvict(value = "commentLists", allEntries = true)
     public void saveAll(List<Comment> list) {
         commentRepository.saveAll(list);
     }

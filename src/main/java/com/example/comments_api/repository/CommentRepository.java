@@ -11,4 +11,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     boolean existsByIdAndPostId(Long id, Long postId);
     void deleteByIdAndPostId(Long id, Long postId);
     void deleteByPostId(Long postId);
+    List<Comment> findAllByAuthor(String author);
 }
